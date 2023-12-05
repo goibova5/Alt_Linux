@@ -52,9 +52,40 @@ e. Пул адресов для сети офиса HQ - не более 64.
 
 
 a)
-Способ, если интерфейсы были добавлены после установки системы:
+## Способ, если интерфейсы были добавлены после установки системы:
 
 Для начало создаем папку с нужным интерфейсом:
 ```
-mkdir /etc/net/ifaces/xxx
+mkdir /etc/net/ifaces/ens192
+```
+Далее в данной папке нужно создать файл ```options``` с параметрами:
+```
+BOOTPROTO=static
+TYPE=eth
+CONFIG_WIRELESS=no
+SYSTEMD_BOOTPROTO=dhcp4
+CONFIG_IPV4=yes
+DISABLED=no
+NM_CONTROLLED=no
+SYSTEMD_CONTROLLED=no
+```
+После этого задается нужный адрес на интерфейс:
+```
+echo 192.168.0.170/30 > /etc/net/ifaces/ens192/ipv4address
+```
+Чтоб добавить шлюз по умолчанию нужна команда:
+```
+echo default via 192.168.0.170 > /etc/net/ifaces/xxx/ipv4route
+```
+Для указание информации о DNS-сервере, прописываем команду:
+```
+echo nameserver 8.8.8.8 > /etc/resolv.conf
+```
+Затем перезагружаем сетевую службу:
+```
+service network restart
+```
+И на последок проверяем репзультат:
+```
+ip a
 ```
