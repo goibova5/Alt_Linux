@@ -26,10 +26,14 @@ d. Пул адресов для сети офиса BRANCH - не более 16.
 
 e. Пул адресов для сети офиса HQ - не более 64.
 
-|adapter 1|ens192|
-|-----------------
-|adapter 2|ens224|
-|adapterlol
+----------------------
+| adapter 1 -- ens192 |
+
+| adapter 2 -- ens224 |
+
+| adapter 3 -- ens256 |
+
+| adapter 4 -- ens161 |
 
 
 ![image](https://github.com/goibova5/Alt_Linux/assets/148867942/57fdbc50-d41e-4d29-9aa3-dc55b752d298)
@@ -137,4 +141,34 @@ ip a
 
 ## NAT с помощью firewalld ISP,HQ-R,BR-R:
 
-Настройки интерфейс
+Настройки options у интерфейсов:
+```
+NM_CONTROLLED=no
+DISABLED=no
+```
+Далее установим Firewalld:
+```
+apt-get -y install firewalld
+```
+После этого включаем автозагрузку:
+```
+systemctl enable --now firewalld
+```
+К исходящим пакетам добавляем правила:
+```
+firewall-cmd --permanent --zone=public --add-interface=ens33
+```
+И к входящим пакетам:
+```
+firewall-cmd --permanent --zone=trusted --add-interface=ens34
+```
+Включаем NAT:
+```
+firewall-cmd --permanent --zone=public --add-masquerade
+```
+Сохраняем правила:
+```
+firewall-cmd --reload
+```
+
+
