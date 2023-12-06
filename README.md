@@ -26,7 +26,10 @@ d. Пул адресов для сети офиса BRANCH - не более 16.
 
 e. Пул адресов для сети офиса HQ - не более 64.
 
-
+|adapter 1|ens192|
+|-----------------
+|adapter 2|ens224|
+|adapterlol
 
 
 ![image](https://github.com/goibova5/Alt_Linux/assets/148867942/57fdbc50-d41e-4d29-9aa3-dc55b752d298)
@@ -130,3 +133,8 @@ service network restart
 ```
 ip a
 ```
+
+
+## NAT с помощью firewalld ISP,HQ-R,BR-R:
+
+Настройки интерфейс
