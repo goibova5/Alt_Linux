@@ -171,4 +171,21 @@ firewall-cmd --permanent --zone=public --add-masquerade
 firewall-cmd --reload
 ```
 
+Если Firewalld после перезагрузки машины не загружает введёные команды автоматически, а только после команды:
+```
+firewall-cmd --reload
+```
+То стоит проверить через ```vim``` options у интерфейсов, и при необходимости выключить NetworkManager:
+```
+NM_CONTROLLED=no
+```
 
+Так же может помочь команда:
+```
+systemctl disable network.service NetworkManager
+```
+ ## Все тоде самое сделать на ISP,HQ-R,BR-R!
+
+
+
+https://github.com/Clover136/demo2024/blob/main/ALT%20LINUX.md
